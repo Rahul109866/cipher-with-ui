@@ -6,19 +6,23 @@ class Cipher():
     
     # keyset = 'abcdefghijklmnopqrstuvwxyz' 
     
-    def __init__(self, message, rotation):
+    def __init__(self):
         
-        print("Welcome to the CCA's cipher machine.")
+        print("Welcome to the CCA's cipher machine.\n")
         
-        self.message = message
-        self.rotation = rotation
-        if rotation > 25:
-            print("Please enter a number less than 26 to avoid redundancy.")
+       
+        
             
         
     def encrypt(self):
         
-        print("Begin Encryption.....")
+        print("Begin Encryption.....\n")
+        
+        text = input("Please enter your message: ")    
+        rotation = int(input("Enter the rotation for your Caesar's cipher: "))
+        
+        self.message = text
+        self.rotation = rotation
         
         def chrToUni(string): 
             """Converts the string into list of unicode equivalent
@@ -56,16 +60,17 @@ class Cipher():
         
         cipherText = list(map(uniToChar,cycledUnicode ))
         
-        print("Encryption Completed.")
-        print("The encrypted text is:")
+        print("\nEncryption Completed.")
+        print("\nThe encrypted text is:")
         return "".join(cipherText)
     
-    
-    
-    
-    
-c = Cipher('ragul', 29)
+
+c = Cipher()
+
 print(c.encrypt())
+    
+    
+
     
     
 
