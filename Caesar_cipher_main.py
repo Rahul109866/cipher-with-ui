@@ -4,8 +4,7 @@ print('\033c')
 
 class Cipher():
     
-    # keyset = 'abcdefghijklmnopqrstuvwxyz' 
-    
+     
     def __init__(self):
         
         print("Welcome to the CCA's cipher machine.\n")
@@ -96,10 +95,10 @@ class Cipher():
             Return: int -> cycled unicode charecter if out of bounds
             """
             
-            if num > 122:
-                return (num % 122) + 96
+            if num - self.cipher_key > 96:
+                return num
             else:
-                return num % 122
+                return 123 - (97 % num)
         
         
         # return list(map(decyclicUnicode,list(map(unRotate, uniDecryptList))))
