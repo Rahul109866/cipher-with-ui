@@ -10,9 +10,6 @@ class Cipher():
         
         print("Welcome to the CCA's cipher machine.\n")
         
-       
-        
-            
         
     def encrypt(self):
         
@@ -35,7 +32,7 @@ class Cipher():
             strList = [*string] # unpack the strings into a list of charecters
             return [ord(x) for x in strList]
         
-        uniList = chrToUni(self.message)
+        uniEncryptList = chrToUni(self.message)
         
         def rotate(num, degree=self.rotation):
             return num + degree
@@ -56,13 +53,45 @@ class Cipher():
         def uniToChar(num):
             return chr(num)
             
-        cycledUnicode = list(map(cyclicUnicode, list(map(rotate, uniList))))
+        cycledUnicode = list(map(cyclicUnicode, list(map(rotate, uniEncryptList))))
         
         cipherText = list(map(uniToChar,cycledUnicode ))
         
         print("\nEncryption Completed.")
         print("\nThe encrypted text is:")
         return "".join(cipherText)
+    
+    
+    def decrypt(self):
+        
+        spaghetti = input("Please Enter the encrypted message: ")
+        cipher_key = int(input("Enter the cipher key: "))
+        
+        self.spaghetti = spaghetti
+        self.cipher_key = cipher_key
+        
+        def chrToUni(string): 
+            """Converts the string into list of unicode equivalent
+            
+            Keyword arguments:
+            string -- input string
+            list: list of unicode converted elements
+            """
+            
+            strList = [*string] # unpack the strings into a list of charecters
+            return [ord(x) for x in strList]
+        
+        uniDecryptList = chrToUni(self.spaghetti)
+        
+        def unRotate(num, rotation):
+            return num - rotation
+        
+        def uni
+        
+        
+        
+        
+
     
 
 c = Cipher()
