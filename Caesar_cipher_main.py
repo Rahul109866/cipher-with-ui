@@ -83,21 +83,44 @@ class Cipher():
         
         uniDecryptList = chrToUni(self.spaghetti)
         
-        def unRotate(num, rotation):
-            return num - rotation
         
-        def uni
+        
+        def unRotate(num,degree=self.cipher_key):
+            return num - degree
+        
+        def decyclicUnicode(num):
+            """makes the unicode cycle between 97 and 122
+            
+            Keyword arguments:
+            num -- unicode number representation of a lowercase charecter
+            Return: int -> cycled unicode charecter if out of bounds
+            """
+            
+            if num > 122:
+                return (num % 122) + 96
+            else:
+                return num % 122
+        
+        
+        # return list(map(decyclicUnicode,list(map(unRotate, uniDecryptList))))
+        
+        decycledUnicodeList = list(map(decyclicUnicode,list(map(unRotate, uniDecryptList))))
+        decryptedList = list(map(chr, decycledUnicodeList))
+        return "".join(decryptedList)
+        
+        
         
         
         
         
 
-    
+if __name__ == '__main__': 
 
-c = Cipher()
+    c = Cipher()
 
-print(c.encrypt())
-    
+    # print(c.encrypt())
+    print(c.decrypt())
+        
     
 
     
