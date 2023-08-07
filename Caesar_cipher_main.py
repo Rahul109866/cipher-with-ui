@@ -63,6 +63,8 @@ class Cipher():
     
     def decrypt(self):
         
+        print("Decryption Commenced...")
+        
         spaghetti = input("Please Enter the encrypted message: ")
         cipher_key = int(input("Enter the cipher key: "))
         
