@@ -7,7 +7,7 @@ class Cipher():
      
     def __init__(self):
         
-        print("Welcome to the CCA's cipher machine.\n")
+        print(f"Welcome to the CCA's cipher machine.\n".center(160))
         
         
     def encrypt(self):
@@ -28,8 +28,12 @@ class Cipher():
             list: list of unicode converted elements
             """
             
-            strList = [*string] # unpack the strings into a list of charecters
-            return [ord(x) for x in strList]
+            # str1 = string.replace(" ", "")
+            
+            str1 = [*string]
+            return list(map(ord, str1))
+            # unpack the strings into a list of charecters
+            
         
         uniEncryptList = chrToUni(self.message)
         
@@ -79,8 +83,9 @@ class Cipher():
             list: list of unicode converted elements
             """
             
-            strList = [*string] # unpack the strings into a list of charecters
-            return [ord(x) for x in strList]
+            str1 = string.replace(" ", "")
+            str1 = [*str1]
+            return list(map(ord, str1))
         
         uniDecryptList = chrToUni(self.spaghetti)
         
@@ -97,10 +102,10 @@ class Cipher():
             Return: int -> cycled unicode charecter if out of bounds
             """
             
-            if num - self.cipher_key > 96:
+            if num > 96:
                 return num
             else:
-                return 123 - (97 % num)
+                return 122 + (num - 96) # measure of how far away from 97('a') is num and then add it to 122('z') to wrap around
         
         
         # return list(map(decyclicUnicode,list(map(unRotate, uniDecryptList))))
@@ -110,31 +115,10 @@ class Cipher():
         return "".join(decryptedList)
         
         
-        
-        
-        
-        
-
 if __name__ == '__main__': 
 
     c = Cipher()
 
     # print(c.encrypt())
     print(c.decrypt())
-        
-    
-
-    
-    
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+              
