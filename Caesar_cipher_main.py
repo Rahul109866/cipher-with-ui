@@ -1,7 +1,6 @@
 print('\033c')
 #clears the screen for output
 
-
 class Cipher():
     
      
@@ -30,15 +29,20 @@ class Cipher():
             
             # str1 = string.replace(" ", "")
             
-            str1 = [*string]
+            str = string.strip().lower()
+            str1 = [*str]
             return list(map(ord, str1))
             # unpack the strings into a list of charecters
             
         
         uniEncryptList = chrToUni(self.message)
+        print(uniEncryptList)
         
         def rotate(num, degree=self.rotation):
-            return num + degree
+            if num != 32:
+                return num + degree # to account for whitespaces
+            else:
+                return num
         
         def cyclicUnicode(num):
             """makes the unicode cycle between 97 and 122
@@ -50,18 +54,20 @@ class Cipher():
             
             if num > 122:
                 return (num % 122) + 96
+            
+            elif num == 32: # preserve whitespace position
+                return num
+            
             else:
                 return num % 122
             
-        def uniToChar(num):
-            return chr(num)
+        
             
-        cycledUnicode = list(map(cyclicUnicode, list(map(rotate, uniEncryptList))))
+        cycledUnicode = list(map(cyclicUnicode, list(map(rotate, uniEncryptList)))) # shift and make them within alphabet range
+        print(cycledUnicode)
         
-        cipherText = list(map(uniToChar,cycledUnicode ))
+        cipherText = list(map(chr,cycledUnicode )) # convert unicode back to charecter
         
-        print("\nEncryption Completed.")
-        print("\nThe encrypted text is:")
         return "".join(cipherText)
     
     
@@ -83,17 +89,20 @@ class Cipher():
             list: list of unicode converted elements
             """
             
-            str1 = string.replace(" ", "")
+            str1 = string
             str1 = [*str1]
             return list(map(ord, str1))
+        
         
         uniDecryptList = chrToUni(self.spaghetti)
         
         
         
         def unRotate(num,degree=self.cipher_key):
-            return num - degree
-        
+            if num != 32:
+                return num - degree
+            else:
+                return num    # preserve whitespace position    
         def decyclicUnicode(num):
             """makes the unicode cycle between 97 and 122
             
@@ -102,23 +111,32 @@ class Cipher():
             Return: int -> cycled unicode charecter if out of bounds
             """
             
-            if num > 96:
+            if num > 96 or num == 32: 
                 return num
-            else:
+            
+            else: # if the charecter was wrapped around in the original code
                 return 122 + (num - 96) # measure of how far away from 97('a') is num and then add it to 122('z') to wrap around
         
         
-        # return list(map(decyclicUnicode,list(map(unRotate, uniDecryptList))))
+       
         
         decycledUnicodeList = list(map(decyclicUnicode,list(map(unRotate, uniDecryptList))))
+        
         decryptedList = list(map(chr, decycledUnicodeList))
-        return "".join(decryptedList)
+        
+        print("The original message is: ")
+        return f'\n{"".join(decryptedList).capitalize()}. ' # make it presentable with capitalization and with a fullstop
         
         
 if __name__ == '__main__': 
 
     c = Cipher()
 
-    # print(c.encrypt())
-    print(c.decrypt())
+    choice = int(input("Do you want to encrypt or decrypt?: "))
+    
+    if choice != 0:
+        print(c.encrypt())
+    else:
+        print(c.decrypt())
+        
               
